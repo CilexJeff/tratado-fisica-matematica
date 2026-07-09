@@ -71,13 +71,6 @@
     * [9.4 Fibrados Jet de orden superior $J^kE$ y ecuaciones en derivadas parciales geométricas.](/modulos/9_4.md)
     * [9.5 Geometría de Contacto en Fibrados Jet.](/modulos/9_5.md)
     * [9.6 [10 Problemas Resueltos de Fibrados Jet]](/modulos/9_6.md)
-  * **MÓDULO 9B: [MATEMÁTICA] Teoría Clásica de Ecuaciones en Derivadas Parciales (NUEVO)**
-    * [9B.1 Clasificación de EDPs de segundo orden (elípticas, parabólicas, hiperbólicas) vía el símbolo principal.](/modulos/9B_1.md)
-    * [9B.2 Teorema de Cauchy-Kovalevskaya y superficies características.](/modulos/9B_2.md)
-    * [9B.3 Existencia y unicidad para el problema de valor inicial: métodos de energía y estimaciones a priori.](/modulos/9B_3.md)
-    * [9B.4 Buen planteamiento en el sentido de Hadamard; dependencia continua de datos iniciales.](/modulos/9B_4.md)
-    * [9B.5 Soluciones débiles, formulación variacional y su relación con los espacios de Sobolev del Módulo 24.](/modulos/9B_5.md)
-    * [9B.6 [10 Problemas Resueltos de EDPs — con aplicación directa al problema de Lichnerowicz-York del Módulo 18]](/modulos/9B_6.md)
   * **MÓDULO 10: [FÍSICA] Teoría Clásica de Campos Multisimpléctica**
     * [10.1 El Lagrangiano como densidad funcional $\mathcal{L}: J^1E \to \Lambda^n(M)$.](/modulos/10_1.md)
     * [10.2 Principio de Acción Estacionaria y Ecuaciones de Euler-Lagrange geométricas.](/modulos/10_2.md)
