@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tratado Axiomático de Física Teórica</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  
+  <!-- Tipografías Premium -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Tema Base Dark y Plugin de Sidebar -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" />
+
+  <style>
+    /* =========================================================
+       1. VARIABLES Y FONDOS (DEEP SPACE GLASSMORPHISM)
+       ========================================================= */
+    :root {
+      --base-font-size: 17.5px; 
+      --base-line-height: 1.8;
+      --base-font-family: 'Lora', serif; 
+      --heading-font-family: 'Inter', sans-serif; 
+      --code-font-family: 'JetBrains Mono', monospace; 
+      
+      --content-max-width: 950px;
+      
+      --theme-color: #00f2fe;           
+      --text-color: #cbd5e1;            
+      --heading-color: #ffffff;         
+      --sidebar-nav-link-color: #8b949e;
+      --sidebar-nav-link-color--active: #00f2fe;
+    }
+
+    body {
+      /* Gradiente radial inmersivo simulando una iluminación cenital sutil */
+      background: radial-gradient(circle at 50% 0%, #131c2d 0%, #080b12 100%);
+      background-attachment: fixed;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+
+    /* Barra de progreso de lectura (Top) */
+    #reading-progress {
+      position: fixed;
+      top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      z-index: 9999;
+      width: 0%;
+      box-shadow: 0 0 10px #00f2fe;
+      transition: width 0.1s ease-out;
+    }
+
+    /* =========================================================
+       2. TIPOGRAFÍA Y PÁRRAFOS JUSTIFICADOS
+       ========================================================= */
+    .markdown-section p, .markdown-section li {
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--heading-color);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 10px;
+      margin-top: 2.5em;
+      font-weight: 600;
+    }
+    
+    h1 {
+      background: -webkit-linear-gradient(45deg, #e0f2fe, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      border-bottom: none;
+      font-size: 2.6em;
+      letter-spacing: -0.5px;
+    }
+
+    /* Menú lateral con efecto cristal (Glassmorphism) */
+    .sidebar { 
+      background: rgba(8, 11, 18, 0.7) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .sidebar ul li a { font-family: var(--heading-font-family); font-size: 14.5px; }
+
+    /* =========================================================
+       3. CAJAS AXIOMÁTICAS SEMÁNTICAS
+       ========================================================= */
+    blockquote { 
+      padding: 20px 25px; 
+      border-radius: 0 10px 10px 0;
+      margin: 2em 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      border-left: 4px solid #4facfe; /* Default */
+      background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    blockquote:hover {
+      box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+    }
+    blockquote p { margin: 0; color: #f1f5f9; font-size: 1.05em; line-height: 1.7; }
+
+    /* Clases inyectadas por JS según el icono matemático */
+    .bq-def { border-left-color: #38bdf8; background: linear-gradient(90deg, rgba(56, 189, 248, 0.05), transparent); }
+    .bq-thm { border-left-color: #f8fafc; background: linear-gradient(90deg, rgba(248, 250, 252, 0.05), transparent); }
+    .bq-lem { border-left-color: #fbbf24; background: linear-gradient(90deg, rgba(251, 191, 36, 0.05), transparent); }
+    .bq-mot { border-left-color: #34d399; background: linear-gradient(90deg, rgba(52, 211, 153, 0.05), transparent); }
+    .bq-ex  { border-left-color: #fb7185; background: linear-gradient(90deg, rgba(251, 113, 133, 0.05), transparent); }
+    .bq-proof { border-left-color: #a78bfa; background: linear-gradient(90deg, rgba(167, 139, 250, 0.03), transparent); }
+
+    /* Detalles colapsables (Demostraciones) */
+    details > summary {
+      list-style: none;
+      cursor: pointer;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed rgba(167, 139, 250, 0.3);
+      margin-bottom: 15px;
+      transition: opacity 0.2s;
+    }
+    details > summary:hover { opacity: 0.7; }
+    details > summary::marker, details > summary::-webkit-details-marker { display: none; }
+
+    /* =========================================================
+       4. INTERFAZ DE ECUACIONES (MATHJAX HOVER) Y CÓDIGO
+       ========================================================= */
+    .markdown-section code { 
+      background-color: #1e293b; 
+      color: #f87171; 
+      padding: 3px 6px;
+      border-radius: 6px;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    mjx-container { color: #f8fafc !important; font-size: 110%; }
+
+    /* Efecto "Panel" interactivo para ecuaciones en bloque $$ $$ */
+    mjx-container[display="true"] {
+      background: rgba(15, 23, 42, 0.5);
+      padding: 15px 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    mjx-container[display="true"]:hover {
+      background: rgba(15, 23, 42, 0.8);
+      border-color: rgba(56, 189, 248, 0.3);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.1);
+      transform: scale(1.015);
+    }
+    
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+  </style>
+
+  <!-- MathJax v3 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        tags: 'ams',
+        packages: {'[+]': ['base', 'ams', 'noerrors', 'noundefined', 'boldsymbol']}
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'summary'] }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+  <!-- Barra de progreso inyectada -->
+  <div id="reading-progress"></div>
+  
+  <div id="app">Mapeando la topología del espacio abstracto...</div>
+  
+  <script>
+    window.$docsify = {
+      name: '<b>Tratado Axiomático</b>',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      sidebarDisplayLevel: 1, 
+      
+      alias: { '/.*/_sidebar.md': '/_sidebar.md' },
+
+      // Paginación
+      pagination: {
+        previousText: 'Módulo Anterior',
+        nextText: 'Siguiente Módulo',
+        crossChapter: true,
+        crossChapterText: true,
+      },
+
+      plugins: [
+        function(hook, vm) {
+          let mathBlocks = [];
+
+          // 1. Proteger LaTeX de Markdown
+          hook.beforeEach(function(content) {
+            mathBlocks = [];
+            let id = 0;
+            content = content.replace(/\$\$([\s\S]*?)\$\$/g, function(match) {
+              mathBlocks.push(match); return '@@MATHBLOCK_' + (id++) + '@@';
+            });
+            content = content.replace(/\$((?!\$)[\s\S]*?)\$/g, function(match) {
+              mathBlocks.push(match); return '@@MATHINLINE_' + (id++) + '@@';
+            });
+            return content;
+          });
+
+          // 2. Restaurar LaTeX
+          hook.afterEach(function(html, next) {
+            let id = 0;
+            html = html.replace(/@@MATHBLOCK_\d+@@/g, function() { return mathBlocks[id++]; });
+            html = html.replace(/@@MATHINLINE_\d+@@/g, function() { return mathBlocks[id++]; });
+            next(html);
+          });
+
+          // 3. Procesamiento Estructural del DOM (Semántica y Demostraciones)
+          hook.doneEach(function() {
+            document.querySelectorAll('blockquote').forEach(bq => {
+              const htmlContent = bq.innerHTML;
+              const textContent = bq.innerText.trim();
+              
+              // A) Asignación de Clases Semánticas por Ícono
+              if (textContent.startsWith('🔷')) bq.classList.add('bq-def');
+              else if (textContent.startsWith('⬛')) bq.classList.add('bq-thm');
+              else if (textContent.startsWith('🔶')) bq.classList.add('bq-lem');
+              else if (textContent.startsWith('💡')) bq.classList.add('bq-mot');
+              else if (textContent.startsWith('🔍')) bq.classList.add('bq-ex');
+              else if (textContent.startsWith('📐')) bq.classList.add('bq-proof');
+
+              // B) Creación de <details> interactivo para Demostraciones
+              if (textContent.startsWith('📐') && htmlContent.includes('Demostración')) {
+                if (bq.querySelector('details')) return; 
+                const details = document.createElement('details');
+                const summary = document.createElement('summary');
+                
+                summary.innerHTML = '<span style="color:#a78bfa; font-weight:600; font-family:var(--heading-font-family); font-size:1.1em; letter-spacing:0.5px;">📐 Demostración Analítica</span> <span style="font-size:0.8em; opacity:0.6; margin-left:12px; font-family:var(--heading-font-family); background:#1e1b4b; padding:2px 8px; border-radius:12px; border:1px solid #312e81;">[Clic para expandir]</span>';
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.innerHTML = htmlContent.replace(/<p>📐\s*<strong>Demostración.*?<\/strong>(<br>)?/, '<p>');
+                
+                details.appendChild(summary);
+                details.appendChild(contentDiv);
+                bq.innerHTML = '';
+                bq.appendChild(details);
+              }
+            });
+
+            if (typeof MathJax !== 'undefined') {
+              MathJax.typesetClear();
+              MathJax.typesetPromise();
+            }
+          });
+        }
+      ]
+    }
+
+    // Lógica para la barra de progreso de lectura
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('reading-progress').style.width = scrolled + '%';
+    });
+  </script>
+  
+  <!-- Core de Docsify -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+  
+  <!-- Plugins Oficiales: Sidebar Collapse, Paginación, y Zoom Image -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+  <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+</body>
+</html>
